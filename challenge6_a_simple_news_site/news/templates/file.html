@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <h1>reading file.json </h1>
+</head>
+<body>
+    <!-- 定义宏 -->
+    {% macro file_item(file_content, type="bootstrap") %}
+        <div>
+            <p>title: {{ file_content.title}} </p>
+            <p>created_time: {{ file_content.created_time}} </p>
+            <p>content : {{ file_content.content}} </p>
+    {% endmacro %}
+
+<div> {{file_item(file_content)}}</div>
+</body>
+</html>
