@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Index</title>
+</head>
+<body>
+  {% for file in files %}
+
+  <p><a href="{{ url_for('file', file_id=file.id) }} " target="_black">{{ file.title}} </a></p>
+  {% endfor %}
+</body>
+</html>
