@@ -19,21 +19,23 @@ def parse(response):
 
 def has_next_page(response):
     classes = response.xpath('//li[contains(@class, "next-page")]/@class').extract_first()
+    #classes = response.css('div.comment-box li.disabled.next-page').extract()
+    print(classes)
     return 'disabled' not in classes
-
-
+   # return not classes
 
 def goto_next_page(driver):
     next_page_btn = driver.find_element_by_xpath('//li[contains(@class, "next-page")]')
-    next_page_btn.click
+    next_page_btn.click()
 
 
 def wait_page_return(driver, page):
     WebDriverWait(driver, 20).until(
             EC.text_to_be_present_in_element(
-                (By.XPATH, '//ul[@class="pagination"]/li[@class="active"]'),                str(page)
-                )
+                (By.XPATH, '//ul[@class="pagination"]/li[@class="active"]'),
+                str(page)
             )
+        )
 
 def spider():
     driver = webdriver.PhantomJS()
@@ -45,7 +47,9 @@ def spider():
         html = driver.page_source
         response = HtmlResponse(url=url, body=html.encode('utf8'))
         parse(response)
+        print('--------------', page)
         if not has_next_page(response):
+        #if response.css('div.comment-box li.disabled.next-page'):
             break
         page +=1
         goto_next_page(driver)
